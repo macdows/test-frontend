@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
+      <v-toolbar-title class="headline text-uppercase" @click="$router.push({ name: 'products' })">
         <span>Lucine</span>
         <span class="font-weight-light">Test Frontend</span>
       </v-toolbar-title>

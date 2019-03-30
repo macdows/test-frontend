@@ -1,5 +1,5 @@
 <template>
-  <div class="products">
+  <div class="products-page">
 
     <!-- list of products -->
     <div class="wrapper" v-if="products.length">
@@ -73,7 +73,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .products {
+  .products-page {
     height: 100%;
     padding: 40px;
 
