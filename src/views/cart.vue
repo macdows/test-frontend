@@ -37,7 +37,7 @@
     <div class="empty" v-else>
       <img src="@/assets/empty_cart.png">
       Panier vide
-      <v-btn flat c :to="{ name: 'products' }">Parcourir les produits</v-btn>
+      <v-btn flat color="primary" :to="{ name: 'products' }">Parcourir les produits</v-btn>
     </div>
     <v-dialog
       v-model="showDialog"
@@ -78,7 +78,7 @@ export default {
       setTimeout(() => {
         this.$store.dispatch('emptyCart')
           .then(this.showDialog = false)
-          .then(this.$router.replace({ name: 'products' }))
+          .then(this.$router.replace({ name: 'done' }))
       }, 3000)
     }
   },
@@ -110,10 +110,6 @@ export default {
       justify-content: space-between;
       align-items: center;
       padding-left: 40px;
-
-      // h3 {
-      //   margin-right: 30px;
-      // }
     }
 
     .empty {
