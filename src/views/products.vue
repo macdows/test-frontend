@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import EventBus from '@/utils/event-bus'
+
 export default {
   name: 'products',
   data () {
@@ -64,6 +66,7 @@ export default {
     },
     addToCart(item) {
       this.$store.dispatch('addToCart', item)
+        .then(EventBus.$emit('showSnackbar', 'Le produit a été ajouté au panier.'))
     }
   },
 }

@@ -21,16 +21,16 @@
     </v-content>
 
     <v-snackbar
-      v-model="snackbar"
+      v-model="showSnackbar"
       bottom
       right
-      timeout="4000"
+      :timeout="4000"
     >
-      {{ text }}
+      {{ message }}
       <v-btn
         color="pink"
         flat
-        @click="snackbar = false"
+        @click="showSnackbar = false"
       >
         OK
       </v-btn>
@@ -39,13 +39,26 @@
 </template>
 
 <script>
+import EventBus from '@/utils/event-bus'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'app',
+  data () {
+    return {
+      showSnackbar: false,
+      message: '',
+    }
+  },
   computed: {
     ...mapGetters(['itemCount']),
-  }
+  },
+  created () {
+    EventBus.$on('showSnackbar', message => {
+      this.message = message
+      this.showSnackbar = true
+    })
+  },
 }
 </script>
 
