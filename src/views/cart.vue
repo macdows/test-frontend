@@ -1,5 +1,9 @@
 <template>
   <div class="cart-page">
+    <v-btn flat small :to="{ name: 'products'}">
+      <v-icon>arrow_left</v-icon>
+      <span>Retour</span>
+    </v-btn>
     <v-list v-if="cart.length" class="cart-items" subheader two-line>
       <v-subheader><h2>Mon panier</h2></v-subheader>
       <v-list-tile
