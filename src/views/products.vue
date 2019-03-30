@@ -16,9 +16,9 @@
           <div>{{ product.title }}</div>
 
           <div class="bottom">
-            <h4 class="price">{{randomInt()}}.00€</h4>
+            <h4 class="price">{{product.price}}.00€</h4>
 
-            <v-btn class="add" @click="addToCart" icon flat>
+            <v-btn class="add" @click="addToCart(product)" icon flat>
               <v-icon color="green">add_shopping_cart</v-icon>
             </v-btn>
           </div>
@@ -51,15 +51,19 @@ export default {
     // get data from the jsonplaceholder API
     fetch('https://jsonplaceholder.typicode.com/photos')
       .then(response => response.json())
-      .then(products => this.products = products.slice(0, 100)) // the api doesnt have a limit filter...
+      .then(products => {
+        let tmp = products.slice(0, 100) // the api doesnt have a limit filter...
+        tmp.forEach(e => e.price = this.randomInt())
+        this.products = tmp
+      })
       .catch(console.error)
   },
   methods: {
     randomInt() {
       return Math.floor(Math.random() * 100) + 10 
     },
-    addToCart() {
-
+    addToCart(item) {
+      this.$store.dispatch('addToCart', item)
     }
   },
 }

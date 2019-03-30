@@ -1,17 +1,20 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import VuexPersistence from 'vuex-persist'
+// import VuexPersistence from 'vuex-persist'
 import { remove } from 'lodash'
 
 Vue.use(Vuex)
 
-const vuexPersist = new VuexPersistence({
-  storage: window.localStorage,
-})
+// const vuexPersist = new VuexPersistence({
+//   storage: window.localStorage,
+// })
 
 export default new Vuex.Store({
   state: {
     cart: []
+  },
+  getters: {
+    itemCount: state => state.cart.length
   },
   actions: {
     addToCart ({ commit }, item) {
@@ -35,5 +38,5 @@ export default new Vuex.Store({
       state.cart = []
     }
   },
-  plugins: [vuexPersist.plugin],
+  // plugins: [vuexPersist.plugin],
 })
