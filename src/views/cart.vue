@@ -1,16 +1,17 @@
 <template>
   <div class="cart-page">
+
     <v-btn flat small :to="{ name: 'products'}">
       <v-icon>arrow_left</v-icon>
       <span>Retour</span>
     </v-btn>
-    <v-list v-if="cart.length" class="cart-items" subheader two-line>
+
+    <v-list v-if="cart.length && !done" class="cart-items" subheader two-line>
       <v-subheader><h2>Mon panier</h2></v-subheader>
       <v-list-tile
         class="item-row"
         v-for="(item, index) in cart"
         :key="index"
-        @click=""
       >
         <img class="product-preview" :src="item.url">
 
@@ -38,11 +39,15 @@
         </v-btn>
       </div>
     </v-list>
-    <div class="empty" v-else>
+
+    <div class="empty" v-if="!cart.length && !done">
       <img src="@/assets/empty_cart.png">
       Panier vide
       <v-btn flat color="primary" :to="{ name: 'products' }">Parcourir les produits</v-btn>
     </div>
+
+    <done v-if="done" />
+
     <v-dialog
       v-model="showDialog"
       hide-overlay
@@ -67,13 +72,18 @@
 </template>
 
 <script>
+import Done from '@/components/done'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'cart',
+  components: {
+    Done,
+  },
   data () {
     return {
-      showDialog: false
+      showDialog: false,
+      done: false,
     }
   },
   watch: {
@@ -81,8 +91,10 @@ export default {
       if (!val) return
       setTimeout(() => {
         this.$store.dispatch('emptyCart')
-          .then(this.showDialog = false)
-          .then(this.$router.replace({ name: 'done' }))
+          .then(() => {
+            this.showDialog = false
+            this.done = true
+          })
       }, 3000)
     }
   },

@@ -55,16 +55,16 @@ export default {
       .then(response => response.json())
       .then(products => {
         // les données renvoyées par l'api ne sont pas vraiment des produits alors on doit rajouter un prix pour chaque item
-        products.forEach(e => e.price = this.randomInt())
+        products.forEach(e => (e.price = this.randomInt()))
         this.products = products
       })
       .catch(console.error)
   },
   methods: {
-    randomInt() {
-      return Math.floor(Math.random() * 100) + 10 
+    randomInt () {
+      return Math.floor(Math.random() * 100) + 10
     },
-    addToCart(item) {
+    addToCart (item) {
       this.$store.dispatch('addToCart', item)
         .then(EventBus.$emit('showSnackbar', 'Le produit a été ajouté au panier.'))
     }
