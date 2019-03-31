@@ -26,7 +26,6 @@
       img {
         height: 200px;
         object-fit: contain;
-        margin-left: -46px;
       }
     }
   }

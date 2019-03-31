@@ -50,13 +50,13 @@ export default {
     }
   },
   created () {
-    // get data from the jsonplaceholder API
-    fetch('https://jsonplaceholder.typicode.com/photos')
+    // charge les données depuis l'api jsonplacholder
+    fetch('https://jsonplaceholder.typicode.com/photos?albumId=1')
       .then(response => response.json())
       .then(products => {
-        let tmp = products.slice(0, 100) // the api doesnt have a limit filter...
-        tmp.forEach(e => e.price = this.randomInt())
-        this.products = tmp
+        // les données renvoyées par l'api ne sont pas vraiment des produits alors on doit rajouter un prix pour chaque item
+        products.forEach(e => e.price = this.randomInt())
+        this.products = products
       })
       .catch(console.error)
   },
@@ -95,6 +95,8 @@ export default {
         > img {
           height: 150px;
           width: 150px;
+          min-height: 150px;
+          min-width: 150px;
           object-fit: contain;
           padding: 12px;
         }
@@ -114,6 +116,7 @@ export default {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+          width: 100%;
 
           padding: 12px;
 
